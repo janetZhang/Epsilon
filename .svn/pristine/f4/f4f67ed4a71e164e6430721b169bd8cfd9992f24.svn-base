@@ -1,0 +1,17 @@
+package com.prelude.epsilon.DAO;
+
+import java.util.List;
+
+import org.hibernate.Session;
+
+import com.prelude.epsilon.domain.Encashment;
+
+public interface EncashDAO {
+	public Session openSession();
+	public Session closeSession();
+	public Encashment getEncashById(int id);
+	public void addEncashment(Encashment Encashment);
+	public void removeEncashment(Encashment encashment);
+	public void updateEncashment(Encashment encashment);
+	public List<Encashment> searchEncashByFirstName(String firstName); 
+}

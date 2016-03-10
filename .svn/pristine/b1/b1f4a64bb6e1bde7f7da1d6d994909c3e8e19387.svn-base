@@ -1,0 +1,56 @@
+/* This is Controller which authenticates the user by
+ * comparing the supplied email ID and password. 
+ * On successful authentication it then routes to the
+ * respective dashboards depending on the role (user/manager/admin).
+ * It displays an error message on authentication failure.
+ * 
+ * Revision History	:
+ * Version		Created/Modified by			Date			Comments
+ * 1.0			Suneetha Nagendra	     	03/13/2015		Created
+ *
+ */
+package com.prelude.epsilon.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.prelude.epsilon.domain.User;
+import com.prelude.epsilon.util.HibernateUtil;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class LoginController {
+	String message = "Welcome";
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	protected ModelAndView handleRequestInternal (
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		String enteredEmailID = request.getParameter("email");
+		String enteredPassword = request.getParameter("password");
+ 
+		Session session = HibernateUtil.getSessionFactory().openSession();    
+		session.beginTransaction();  
+		String query = "from User where EMAIL_ID = :email_id and PASSWORD = :password";
+		Query qry = session.createQuery(query);
+		qry.setParameter("email_id", "abc@preludesys.com");
+		qry.setParameter("password", "prelude");
+		List <User> users = qry.list();
+		User user = users.get(0);
+		message += user.getRole().getRoleName();
+		ModelAndView mv = new ModelAndView("helloworld");
+		mv.addObject("message", message);
+		mv.addObject("name", "abc@preludesys.com");
+		return mv;	
+	}
+}
+

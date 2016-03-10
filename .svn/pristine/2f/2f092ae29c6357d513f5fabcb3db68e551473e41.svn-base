@@ -1,0 +1,16 @@
+package com.prelude.epsilon.DAO;
+
+import com.prelude.epsilon.domain.Role;
+import com.prelude.epsilon.domain.User;
+
+public interface UserDAO {
+	 
+
+		public void addUser(User u);
+		public void updateUser(User u);
+		public void deleteUser(User u);
+		public Role getRoleByID(Role r, int id);
+	    
+
+
+}

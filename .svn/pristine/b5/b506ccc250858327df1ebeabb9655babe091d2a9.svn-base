@@ -1,0 +1,55 @@
+package com.prelude.epsilon.domain;
+
+import java.util.Set;
+
+
+
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="role")
+public class Role {
+	private String roleID;
+	private String roleName;
+	private Set <User> users;
+	
+	public Role(){
+		
+	}
+	
+	public Role(String roleID, String roleName){
+		this.roleID = roleID;
+		this.roleName = roleName;
+	}
+	
+	@Id
+	@Column(name="ROLE_ID")
+	public String getRoleID() {
+		return roleID;
+	}
+	public void setRoleID(String roleID) {
+		this.roleID = roleID;
+	}
+	@Column(name="ROLE_NAME")
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role", cascade = CascadeType.ALL)
+	public Set<User> getUsers() {
+		return users;
+	}
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+}

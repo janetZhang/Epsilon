@@ -1,0 +1,9 @@
+	<aside id="left">
+	<nav>
+		<ul>
+			<li><a href="#" >Manage User </a></li>
+			<li><a href="#" class="clicked">Manage Vacation</a></li>
+		</ul>
+	</nav>
+	</aside>
+	

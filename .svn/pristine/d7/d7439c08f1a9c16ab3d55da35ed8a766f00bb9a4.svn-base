@@ -1,0 +1,63 @@
+/*This is Controller which authenticates the user.
+ * comparing the suplied email ID and password.
+ * 
+ * Revision History	:
+ * Version		Created/Modified by			Date			Comments
+ * 1.0			Suneetha Nagendra	     	03/13/2015		Created
+ *
+ * 
+*/
+package com.prelude.epsilon.controller;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+
+import com.prelude.epsilon.domain.User;
+import com.prelude.epsilon.util.HibernateUtil;
+
+public class LoginController {
+	private Session session;
+	
+	public void openSession() {
+		session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();	
+	}
+	public void closeSession() {
+		session.getTransaction().commit();
+		session.close();		
+	}
+	public SQLQuery authenticateUser(String emailID, String password) {
+
+		String query = "select * from User where EMAIL_ID = '" + emailID +
+						"' and PASSWORD = '" + password + "';";
+		SQLQuery qry = session.createSQLQuery(query);		
+		qry.addEntity(User.class);
+		return qry;
+	}
+	
+	public static void main(String[] args) {
+		LoginController obj = new LoginController();
+		obj.openSession();
+		SQLQuery qry = obj.authenticateUser("john_doe@preludesys.com", "password2014");
+	    List<User> entities = qry.list();
+	    for (User entity : entities) {
+	    	System.out.print(entity.getUser_ID() + "\t");
+	    	System.out.print(entity.getRole_ID() + "\t");
+	    	System.out.print(entity.getManager_ID() + "\t");
+	    	System.out.print(entity.getEmail_ID() + "\t");
+	    	System.out.print(entity.getPassword() + "\t");
+	    	System.out.print(entity.getFirstName() + "\t");
+	    	System.out.print(entity.getLastName() + "\t");
+	    	System.out.print(entity.getAddress() + "\t");
+	    	System.out.print(entity.getPhone() + "\t");
+	    	System.out.print(entity.getDesignation() + "\t");
+	    	System.out.print(entity.getDateOfBirth() + "\t");
+	    	System.out.print(entity.getDateOfJoin() + "\t");
+	        System.out.println(entity.getStatus() + "\t");
+	    }
+	    obj.closeSession();
+	}
+}

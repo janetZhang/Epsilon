@@ -1,0 +1,19 @@
+package com.prelude.epsilon.DAO;
+
+import java.util.List;
+
+import com.prelude.epsilon.domain.Role;
+import com.prelude.epsilon.domain.User;
+
+public interface UserDAO {
+	 
+
+		public void addUser(User u);
+		public void updateUser(User u);
+		public void deleteUser(String email);
+		public Role getRoleByID(Role r, int id);
+	    public List<User> getUserByEmailId(String email);
+	    public User searchUserByFirstName(String firstname);
+
+
+}

@@ -1,0 +1,22 @@
+package com.prelude.epsilon.controller;
+
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+public class VacationController {
+	@RequestMapping(value="/vacation.do", method=RequestMethod.GET) 
+	protected ModelAndView reqvacPage(ModelMap mm){
+		ModelAndView mv = new ModelAndView("vacationRequest");
+		mv.addObject("welcomeMessage", "");
+		return mv; 
+	}
+	@RequestMapping(value="/vacationRequest.do", method=RequestMethod.GET) 
+	protected ModelAndView submitvacPage(ModelMap mm){
+		ModelAndView mv = new ModelAndView("vacationRequest");
+		mv.addObject("welcomeMessage", "");
+		return mv; 
+	}
+
+}

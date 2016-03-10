@@ -1,0 +1,20 @@
+package com.prelude.epsilon.controller;
+
+/**
+ * 
+ * @author Ashok
+ *
+ */
+public class SampleController {
+
+	
+	public void test(){
+		
+		System.out.println("hello everyone");
+	}
+	public void test2()
+	{
+		System.out.println("Hi!");
+	}
+		
+}

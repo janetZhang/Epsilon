@@ -1,0 +1,29 @@
+@CHARSET "ISO-8859-1";
+@CHARSET "ISO-8859-1";
+/** Global setting **/
+article, aside, footer, header, hgroup, main, nav, section {
+display: block;
+}
+body{
+	font-family: Arial;
+	font-weight: 120%;
+	font-size:14px;
+	margin: 10px auto;
+	text-align: center;
+	background:  url("../images/jpg-header-blue.jpg") repeat-x ;
+
+}
+a:link, a:visited{
+	color:#0000FF;
+	text-decoration: none;
+}
+a:hover,a:active{
+	color: #000;
+	text-decoration: underline;
+}
+
+ul li{
+	list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}

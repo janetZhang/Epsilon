@@ -1,0 +1,33 @@
+	 <c:set value="${role}"  var="role"/>
+	<%
+	String roleId= (String)request.getAttribute("role");
+	%>
+<!-- 	<aside id="left">
+	<nav>
+		<ul>
+			<li><a href="#" >Manage User ---${role}</a></li>
+			<li><a href="#" class="clicked">Manage Vacation</a></li>
+		</ul>
+	</nav>
+	</aside>
+	
+	<aside id="left"> 
+	<nav >
+		<ul>
+			<li><a href="#" class="clicked">Vacation summary</a></li>
+			<li><a href="#" >Vacation request</a></li>
+			<li><a href="#" >Vacation history</a></li>
+		</ul>
+	</nav>
+	</aside>
+	-->
+	<aside id="left">
+	<nav >
+		<ul>
+			<li><a href="#" class="clicked">Vacation summary</a><%=roleId %>${role }</li>
+			<li><a href="#" >Vacation request</a></li>
+			<li><a href="#" >Vacation history</a></li>
+			<li><a href="#" >Pending list</a></li>
+		</ul>
+	</nav>
+	</aside>

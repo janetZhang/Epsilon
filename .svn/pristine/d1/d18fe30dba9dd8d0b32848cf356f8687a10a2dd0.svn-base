@@ -1,0 +1,118 @@
+package com.prelude.epsilon.DAO;
+
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.prelude.epsilon.domain.Encashment;
+import com.prelude.epsilon.domain.User;
+import com.prelude.epsilon.domain.Vacation;
+import com.prelude.epsilon.util.HibernateUtil;
+
+/**
+ * This class is used to implement the database access to encashment object
+ * Includes update, add, search and delete encashment object.
+ * 
+ * @author Liangqin Zhang
+ *
+ */
+public class EncashDAOImpl implements EncashDAO {
+	public Session session;
+
+	/**
+	 * open session, after transaction it should be closed.
+	 * 
+	 * @return
+	 */
+	public Session openSession() {
+		session = HibernateUtil.getSessionFactory().openSession();
+		return session;
+	}
+
+	public Session closeSession() {
+		session.close();
+		return session;
+	}
+
+	/**
+	 * Get encashment object by id(int)
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public Encashment getEncashById(int id) {
+		session.beginTransaction();
+		Encashment encash = (Encashment) session.get(Encashment.class, id);
+		session.getTransaction().commit();
+
+		return encash;
+	}
+
+	/**
+	 * add Encashment object {@code Encashment}
+	 * 
+	 * @param Encashment
+	 */
+	public void addEncashment(Encashment Encashment) {
+		session.beginTransaction();
+		session.save(Encashment);
+		session.getTransaction().commit();
+		// session.close();
+	}
+
+	/**
+	 * Delete encashment
+	 * 
+	 * @param encashment
+	 */
+	public void removeEncashment(Encashment encashment) {
+		session.beginTransaction();
+		session.delete(encashment);
+		session.getTransaction().commit();
+	}
+
+	/**
+	 * update encashment object
+	 * 
+	 */
+	public void updateEncashment(Encashment encashment) {
+		session.beginTransaction();
+		session.update(encashment);
+		session.getTransaction().commit();
+	}
+
+	/**
+	 * This method is used to retrieve a list of encashment objects made by the
+	 * same user. It takes user object as an argument. This is used to return
+	 * encashment objects by searching any variable of user object. No object is
+	 * returned if no matching is found.
+	 **/
+	public List<Encashment> searchEncashmentByCreator(User user) {
+		List<Encashment> lst;
+		// Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String query = "from Encashment where creator = :user";
+		Query qry = session.createQuery(query);
+		qry.setParameter("user", user);
+		List<Encashment> encashments = qry.list();
+		session.flush();
+		session.getTransaction().commit();
+		// session.close();
+		return encashments;
+	}
+
+	/**
+	 * Search encashment by creator name;
+	 */
+	public List<Encashment> searchEncashByFirstName(String firstName) {
+		session.beginTransaction();
+		Query query = session
+				.createQuery("from Encashment where creator.firstName=?");
+		query.setParameter(0, firstName);
+		List<Encashment> encashList = query.list();
+		return encashList;
+	}
+
+}

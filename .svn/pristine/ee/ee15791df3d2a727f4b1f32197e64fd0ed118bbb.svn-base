@@ -1,0 +1,114 @@
+package com.prelude.epsilon.domain;
+
+
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+	 
+@Entity
+@Table(name = "encashment")
+public class Encashment {
+	
+	private String requestId;
+	private User creater;
+	private int approverId;
+	private int modifierId;
+	private int encashHours;
+	private String status;
+	private Date createdDate;
+	private Date modifiedDate;
+	private String comment;
+	
+	public Encashment() {
+	}
+	 
+ 
+//	public Encashment(String requestID, User user, Date startDate, Date endDate,
+//							Date dateCreated, String status) {
+//		this.requestID = requestID;
+//		this.user = user;
+//		this.startDate = startDate;
+//		this.endDate = endDate;
+//		this.dateCreated = dateCreated;
+//		this.status = status;
+//	}
+	 
+	@Id
+	@Column(name = "REQUEST_ID")
+	public String getRequestID() {
+		return this.requestId;
+	}
+ 
+	public void setRequestID(String requestId) {
+		this.requestId = requestId;
+	}
+ 
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false)
+	public User getCreater() {
+		return this.creater;
+	}
+ 
+	public void setCreater(User user) {
+		this.creater = user;
+	}
+	@Column(name = "APPROVED_BY")
+	public int getApproverId() {
+		return this.approverId;
+	}
+ 
+	public void setApproverId(int approverId) {
+		this.approverId = approverId;
+	} 
+	@Column(name = "MODIFIED_BY")
+	public int getModifierId() {
+		return modifierId;
+	}
+
+	public void setModifierId(int modifierId) {
+		this.modifierId = modifierId;
+	}	
+	@Column(name = "ENCASHHOURS")
+	public int getEncashHours(){
+		return encashHours;
+	}
+	public void setEncashHours(int hours) {
+		this.encashHours = hours;
+	}	
+	@Column(name = "STATUS")
+	public String getStatus() {
+		return this.status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}	
+	@Column(name = "CREATED_DATE")
+	public Date getCreatedDate() {
+		return this.createdDate;
+	}
+	public void setDateCreated(Date createdDate) {
+		this.createdDate = createdDate;
+	} 
+	@Column(name = "MODIFIED_DATE")
+	public Date getModifiedDate() {
+		return this.modifiedDate;
+	}
+ 
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+ 
+	@Column(name = "COMMENT")
+	public String getComment() {
+		return this.comment;
+	}
+ 
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+}

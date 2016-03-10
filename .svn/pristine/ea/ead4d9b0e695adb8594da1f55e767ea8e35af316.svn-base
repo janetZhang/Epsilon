@@ -1,0 +1,5 @@
+package com.prelude.epsilon.DAO;
+
+public interface EncashDAO {
+
+}

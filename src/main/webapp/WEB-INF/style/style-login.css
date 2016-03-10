@@ -1,0 +1,54 @@
+/*
+ * This files has the styling for the login form
+ *
+ * Revision History	:
+ * Version		Created/Modified by			Date			Comments
+ * 1.0			Suneetha Nagendra			03/11/2015		Created
+ * 1.1			Suneetha Nagendra			03/11/2015		Added Revision history header	
+ *
+ */
+.header_section{
+    border:			solid 5px blue;
+    width:			100%;
+}
+.footer_section {       
+    width:100px;
+    position: fixed;
+    bottom: 0px;
+}
+.form_border{
+    position:		relative;
+    top:			200px;
+    left:			300px;
+    width:			40%;
+    height:			40%;			
+    border:			groove 5px lightblue;
+}
+.app_name{
+    color:			blue;
+    font-family:	cursive sans-serif;
+    font-weight:	bold;
+    font-size:		30px;
+    padding:		20px;
+    position:		relative;
+    left:			130px;
+}
+.field_name{
+    position:		relative;
+    left:			130px;
+}		
+.continue{
+    position:		relative;
+    left:			110px;
+    top:			-5px;
+}
+.error_msg{
+	color:			red;
+    position:		relative;
+    left:			120px;	
+}
+.forgot_pwd{
+    position:		relative;
+    left:			180px;
+    top:			-10px;
+}

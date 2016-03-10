@@ -1,0 +1,8 @@
+/**
+ * Hide and show elements
+ */
+$(document).ready(function(){
+	$("#toggle").click(function(){
+	    $(".logout").toggle();
+	});
+});

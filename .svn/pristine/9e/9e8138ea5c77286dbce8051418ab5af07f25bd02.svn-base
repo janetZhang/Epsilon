@@ -1,0 +1,40 @@
+package com.prelude.epsilon.logic;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.Session;
+
+import com.prelude.epsilon.DAO.UserDAO;
+import com.prelude.epsilon.DAO.UserDAOImpl;
+import com.prelude.epsilon.DAO.VacationDAO;
+import com.prelude.epsilon.DAO.VacationDAOImpl;
+import com.prelude.epsilon.domain.User;
+import com.prelude.epsilon.domain.Vacation;
+
+public class VacationLogic {
+	public boolean vacationRequest(int userID, Date startDate, Date endDate, String reason) {
+		Vacation vacReq = new Vacation();
+		vacReq.setStartDate(startDate);
+		vacReq.setEndDate(endDate);
+		User user = new UserDAOImpl().getUserByUserID(userID);
+		vacReq.setUser(user);
+		vacReq.setReason(reason);
+		new VacationDAOImpl().addVacationReq(vacReq);
+		return true;
+	}
+	public Set<Vacation> searchVacationByEmailId(String emailId){
+		UserDAO dao = new UserDAOImpl(); 
+		List<User> uList = dao.getUserByEmailId(emailId);
+		Set<Vacation> vacationList = null;
+		User u = new User();
+		if(uList.size()>0){
+			u=uList.get(0);
+		
+		vacationList = u.getVacation();	
+		System.out.print(vacationList.size());
+		}
+		return vacationList;
+	}
+}

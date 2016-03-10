@@ -1,0 +1,119 @@
+package com.prelude.epsilon.logic;
+
+import java.util.Calendar;
+import java.util.List;
+
+import org.hibernate.Session;
+
+import com.prelude.epsilon.DAO.EncashDAO;
+import com.prelude.epsilon.DAO.EncashDAOImpl;
+import com.prelude.epsilon.domain.Encashment;
+import com.prelude.epsilon.domain.User;
+
+public class EncashLogic {
+	EncashDAO encashDao= new EncashDAOImpl(); 		
+	Session session ;
+	/**
+	 * Approve encashment
+	 * @param encashId
+	 * @param approverId
+	 * @return
+	 */
+	public boolean arrpoveEncash(String encashId,String approverId){
+
+		try{
+			session = encashDao.openSession();
+			Encashment encashRequest = encashDao.getEncashById(Integer.valueOf(encashId));
+			encashRequest.setStatus("approved");
+			encashRequest.setApproverId(Integer.valueOf(approverId));
+		//	encashRequest.setComment("...");
+			encashDao.updateEncashment(encashRequest);
+			
+		}catch(Exception e){
+			;
+			return false;
+		}finally{
+			session.close();
+		}		
+		return true;
+	}
+	/**
+	 * 
+	 * @param creatorId
+	 * @param encashedHours
+	 * @return
+	 */
+	public boolean addEncashmentRequest(String creatorId, String encashedHours ){
+		try{
+			session = encashDao.openSession();
+			Calendar calendar = Calendar.getInstance();
+			Encashment encashRequest = new Encashment();
+			encashRequest.setCreator((User)session.get(User.class, Integer.valueOf(creatorId)));
+			encashRequest.setEncashedHours(Integer.valueOf(encashedHours));
+			encashRequest.setCreatedDate(calendar.getTime());
+			encashDao.addEncashment(encashRequest);	
+			
+		}catch(Exception e){
+			;
+			return false;
+		}finally{
+			session.close();
+		}
+		return true;
+	}
+	public boolean removeEncashmentRequest(String encashmentId ){
+		try{
+			Encashment encashRequest = new Encashment();
+			encashRequest.setRequestId(Integer.valueOf(encashmentId));
+			encashDao.removeEncashment(encashRequest);	
+			
+		}catch(Exception e){
+			;
+			return false;
+		}finally{
+			session.close();
+		}
+		return true;
+	}	
+	public List<Encashment> searchEncashByFirstName(String firstName ){
+		List<Encashment> encashList = null;;
+		try{
+			session = encashDao.openSession();
+			encashList = encashDao.searchEncashByFirstName(firstName);
+			
+		}catch(Exception e){
+			;
+		}finally{
+			session.close();
+		}
+		return encashList;
+	}	
+	public List<Encashment> searchEncashByCreator(String firstName ){
+		List<Encashment> encashList = null;;
+		try{
+			session = encashDao.openSession();
+			User u = new User();
+			u.setFirstName(firstName);
+			encashList = encashDao.searchEncashmentByCreator(u);
+			
+		}catch(Exception e){
+			;
+		}finally{
+			session.close();
+		}
+		return encashList;
+	}	
+	public List<Encashment> searchEncashByCreator(User u){
+		List<Encashment> encashList = null;;
+		try{
+			session = encashDao.openSession();
+			encashList = encashDao.searchEncashmentByCreator(u);
+			
+		}catch(Exception e){
+			;
+		}finally{
+			session.close();
+		}
+		return encashList;
+	}
+}

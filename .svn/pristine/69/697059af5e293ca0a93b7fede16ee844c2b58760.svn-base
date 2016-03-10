@@ -1,0 +1,31 @@
+package com.prelude.epsilon.controller;
+
+import java.util.*;
+
+import org.hibernate.Session;
+
+import com.prelude.epsilon.util.HibernateUtil;
+
+
+
+public class userModel {
+	public List getAllUser() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List result = session.createQuery("from user").list();
+		session.getTransaction().commit();
+		session.close();
+		return result;
+	}
+	
+	public static void main(String[] args) {
+		userModel obj = new userModel();
+		List res = obj.getAllUser();
+		Iterator itr = res.iterator();
+		while(itr.hasNext()) {
+			user u = (user)itr.next();
+			System.out.print("user ID: " + u.getUserID() + "\t");
+			System.out.println("password: " + u.getPassword());
+		}
+	}
+}

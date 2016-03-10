@@ -1,0 +1,52 @@
+package com.prelude.epsilon.DAO;
+
+import java.util.List;
+
+import com.prelude.epsilon.domain.User;
+import com.prelude.epsilon.domain.Vacation;
+
+public interface VacationDAO {
+	/**
+	 * This method is used to insert a new
+	 *  vacation request to the vacation table.
+	 *  Returns true on success and false on failure.
+	 **/
+	public boolean addVacationReq(Vacation vacReq);
+	/**
+	 * This method is used to update a database entry.
+	 * It is used by Admin to modify a vacation.
+	 * No object is returned if the query fails.
+	 **/
+	public boolean updateVacation(Vacation vacReq);
+	/**
+	 * This method is used to delete a database entry.
+	 * It is used by Admin to delete a vacation.
+	 * Returns true on success and false on failure.
+	 **/		
+	public boolean deleteVacation(Vacation vacReq);
+	/**
+	 * This method is used to retrieve a vacation object
+	 * by its ID. It takes vacation request ID as an argument.
+	 * This can be used to modify a particular vacation.
+	 * Can be used by Manager to approve/reject a pending
+	 * request and by Admin to modify a request. Returns true 
+	 * on success and false on failure.
+	 **/
+	public Vacation getVacationByReqID(String vacationID);
+	/**
+	 * This method is used to retrieve a list of vacation objects
+	 * made by the same user. It takes user object as an argument.
+	 * This is used to display vacation summary on the employee
+	 * dashboard. No object is returned if the query fails.
+	 **/	
+	public List <Vacation> getVacationsByUser(User user);
+	/**
+	 * This method is used to retrieve a list of vacation objects
+	 * for the same user i.e. for Manager. It takes user object
+	 * as an argument. This is used to display pending vacation
+	 * requests on the manager dashboard. No object is returned
+	 * if the query fails.
+	 **/
+	public Vacation getVacationsForUser(User user);
+
+}

@@ -1,0 +1,31 @@
+package com.prelude.epsilon.controller;
+
+
+import java.sql.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.Column;
+
+
+@Entity
+@Table(name="user1")
+public class user {
+	@Id
+	@Column(name="USER_ID")
+	private String user_ID;
+	@Column(name="PASSWORD")
+	private String password;
+	public String getUserID() {
+		return user_ID;
+	}
+	public void setUserID(String userID) {
+		this.user_ID = userID;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+}

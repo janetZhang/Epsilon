@@ -1,0 +1,76 @@
+package com.prelude.epsilon.controller;
+import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Session;
+
+import com.prelude.epsilon.domain.User;
+import com.prelude.epsilon.util.HibernateUtil; 
+import com.prelude.epsilon.service.UserDAO;
+import com.prelude.epsilon.service.UserDAOImpl;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+
+@Controller
+public class UserController {
+	@RequestMapping("/reset.do")   
+	protected ModelAndView  guidToReset(){
+		ModelAndView mv = new ModelAndView("resetPassword");
+		mv.addObject("UserId", "0");
+		return mv;
+	}
+	@RequestMapping("/resetpassword.do")   
+	protected ModelAndView resetPassword(
+			@RequestParam("userId") String id,
+			@RequestParam("password") String oldPassword,
+			@RequestParam("newPswd") String newPassword
+			){
+		String message="", dispatcherPage = "";
+		Boolean success;
+		UserDAOImpl userDaoImpl = new  UserDAOImpl();
+		success = userDaoImpl.resetPassword(id,oldPassword,newPassword );
+		if(success){
+			message = "Reset password successfully!";
+			dispatcherPage = "success";
+		}else{
+			message = "The old password is wrong!";
+			dispatcherPage = "resetPassword";
+		}
+		ModelAndView mv = new ModelAndView(dispatcherPage);
+		mv.addObject("message", message);
+		return mv;
+	}
+	@RequestMapping(value="/add.do", method=RequestMethod.GET) 
+	protected ModelAndView addUserPage(ModelMap mm){
+		ModelAndView mv = new ModelAndView("addUser");
+		mv.addObject("welcomeMessage", "Hi, Welcome to Spring MVC annotaion");
+		return mv; 
+	}	
+	@RequestMapping(value="/addUser.do", method=RequestMethod.GET) 
+	protected ModelAndView addUser(ModelMap mm){
+		ModelAndView mv = new ModelAndView("success");
+		System.out.println("Add user done--------------");
+		
+		
+		//UserDao user= new UserDao
+		mv.addObject("welcomeMessage", "Hi, Welcome to Spring MVC annotaion");
+		return mv; 
+	}
+	@RequestMapping(value="/updateuser.jsp", method=RequestMethod.GET) 
+	protected String updateUser(@RequestParam("user_id") String userID,
+			@RequestParam("password") String password){
+	    System.out.println("--Update User--");
+		UserDAO userDao= new UserDAO();
+	//	userDao.updateUser();
+		//List<User> users = 	
+		return "";
+	}	
+	
+
+}

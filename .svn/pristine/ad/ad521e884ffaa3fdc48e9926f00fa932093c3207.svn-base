@@ -1,0 +1,6 @@
+/**
+ * Hide and show elements
+ */
+$("#toggle").click(function(){
+    $(".logout").toggle();
+});

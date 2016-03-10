@@ -1,0 +1,77 @@
+package com.prelude.epsilon.logic;
+import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
+
+import com.prelude.epsilon.DAO.UserDAOImpl;
+import com.prelude.epsilon.domain.Role;
+import com.prelude.epsilon.domain.User;
+
+public class UserLogic {
+
+	public boolean addUser(String empid,int roleid,String fname,String lname,
+			String pwd,String email,String doj,String dob,String contact,String address,
+			String designation,String status)
+	{
+		try{
+		User user = new User();
+		user.setFirstName(fname);
+		user.setLastName(lname);
+		user.setPhone(contact);
+		user.setStatus(status);
+		user.setDateOfBirth(dob);
+		user.setDateOfJoin(doj);
+		user.setAddress(address);
+		user.setPassword(pwd);
+		user.setEmail_ID(email);
+		user.setLastName(lname);
+		user.setUser_ID(1);
+		UserDAOImpl userimpl = new UserDAOImpl();
+		Role role = userimpl.getRoleByID(new Role(),roleid);
+		user.setRole(role);
+		userimpl.addUser(user);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return true;
+	}
+	public boolean updateUserImpl(int roleid,String address,String fname,String lname,
+			String email,String contact,String dob,String doj,String pwd,String status)
+	{
+		User user = new User();
+		user.setFirstName(fname);
+		
+		user.setPhone(contact);
+		user.setStatus(status);
+		user.setDateOfBirth(dob);
+		user.setDateOfJoin(doj);
+		user.setAddress(address);
+		user.setPassword(pwd);
+		user.setEmail_ID(email);
+		user.setLastName(lname);
+		user.setUser_ID(1);
+		UserDAOImpl userimpl = new UserDAOImpl();
+		//Role role = userimpl.getRoleID(new Role(),roleid);
+		//user.setRole(role);
+		userimpl.updateUser(user);
+		return true;
+	}
+	/*public static void main(String[] args)
+	{
+		addUser(2,"hfd","jfjkg","hdfhd","jfdh","hd","dhks","fhg","fdd","jdfk");
+	}*/
+	public User getUserByEmailId(String email)
+	{
+		UserDAOImpl userimpl= new UserDAOImpl();
+		User user = userimpl.getUserByEmailId(email);
+//		Iterator it = user.iterator();
+//		while(it.hasNext()){
+//			User u = (User)it.next();
+//		System.out.println(u.getFirstName()+","+u.getRole().getRoleName());
+//		}
+		return user;
+	}
+}
+

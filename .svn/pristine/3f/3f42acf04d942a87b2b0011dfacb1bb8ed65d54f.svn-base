@@ -1,0 +1,21 @@
+package com.prelude.epsilon.logic;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.prelude.epsilon.util.HibernateUtil;
+
+public class LoginBussinesLogic {
+	public Query authenticateUser(String emailID, String password) {
+		Session session;
+		session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();	
+		String query = "from User where EMAIL_ID = :email_id and PASSWORD = :password";
+		Query qry = session.createQuery(query);
+		qry.setParameter("email_id", emailID);
+		qry.setParameter("password", password);
+		session.getTransaction().commit();
+		session.close();
+		return qry;
+	}
+}

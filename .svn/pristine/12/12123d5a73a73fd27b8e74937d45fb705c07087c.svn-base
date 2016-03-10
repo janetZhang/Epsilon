@@ -1,0 +1,86 @@
+
+
+/*Created By Ranu*/
+package com.prelude.epsilon.DAO;
+
+import java.util.Date;
+import java.util.List;
+
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+
+import com.prelude.epsilon.domain.Role;
+import com.prelude.epsilon.domain.User;
+import com.prelude.epsilon.util.HibernateUtil;
+
+
+
+
+public class UserDAOImpl {
+	   
+/**
+ * Reset password
+ * @param id
+ * @param oldPassword
+ * @param newPassword
+ * @return
+ */
+		public boolean resetPassword(String id,String oldPassword,String newPassword ){
+
+			/*UserDAO userDao= new UserDAO();
+			//User u = userDao.getUserById(Integer.valueOf(id));
+			User u = (User) userDao.getUserById(1);// hard code, should be changed late
+			u.setUser_ID(1);
+			String oldpasd = u.getPassword();
+			if(oldpasd.equals(newPassword)){
+				u.setPassword(newPassword);
+				//userDao.updateUser(u);
+				return true;
+			}
+			else{
+				return false;
+			}*/
+			return false;
+		   }	   	
+		
+
+		//public class UserDAOImpl implements UserDAO{
+			
+			public Role getRoleByID(Role r,int id)
+			{
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				session.beginTransaction();
+				Role role = (Role) session.get(Role.class, id);
+				session.getTransaction().commit();
+				return role;
+			}
+			public void addUser(User user)
+			{
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				session.beginTransaction();
+				session.save(user);
+				session.flush();
+				session.getTransaction().commit();
+				
+			}
+			public void updateUser(User user)
+			{
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				session.beginTransaction();
+				session.update(user);
+				session.getTransaction().commit();
+			}
+			public void deleteUser(User user)
+			{
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				session.beginTransaction();
+				
+				
+				session.delete(user);
+				session.getTransaction().commit();
+			}
+
+}
+
+
+
